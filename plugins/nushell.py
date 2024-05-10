@@ -12,12 +12,25 @@ class NuShell(Plugin):
     def files(self) -> List[tuple[str, str]]:
         return [
             (nu_config_path(self.flags), """
+let fish_completer = {|spans|
+    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    | $"value(char tab)description(char newline)" + $in
+    | from tsv --flexible --no-infer
+}
 $env.config = {
-  edit_mode: vi,
+  edit_mode: vi
   table: {
       mode: rounded
   }
+  completions: {
+        external: {
+            enable: true
+            completer: $fish_completer
+        }
+    }
 }
+
+
 
 alias no = open
 alias open = ^open

@@ -1,4 +1,5 @@
 from typing import List
+import os
 
 from plugins.nushell import nu_env_path
 from plugins.plugin import Plugin
@@ -8,9 +9,13 @@ class Zellij(Plugin):
     name = "Zellij Tmux Thing"
     def files(self) -> List[tuple[str, str]]:
         config_path = "Library/Application Support/org.Zellij-Contributors.Zellij/config.kdl" if 'darwin' in self.flags else ".config/zellij/config.kdl"
+        shell_path = os.environ.get("HOME", "") + "/.local/share/mise/installs/cargo-nu/latest/bin/nu"
+        
         return [
             (config_path, """
 theme "gruvbox-dark"
+
+default_shell """+'"'+shell_path+'"' +"""
 
 themes {
 	// example of how to set a theme in RGB format

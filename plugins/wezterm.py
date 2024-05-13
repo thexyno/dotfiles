@@ -10,9 +10,12 @@ local wezterm = require 'wezterm'
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
--- Spawn a fish shell in login mode
 
-config.default_prog = { '/Users/xyno/.local/share/mise/installs/cargo-nu/latest/bin/nu', '-l' }
+local zellij_path = os.getenv("HOME") .. "/.local/share/mise/installs/cargo-zellij/latest/bin/zellij"
+
+config.default_prog = { zellij_path, 'attach', '-c' }
+config.hide_tab_bar_if_only_one_tab = true
+config.max_fps = 120
 
 -- This is where you actually apply your config choices
 

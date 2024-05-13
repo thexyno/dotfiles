@@ -11,6 +11,11 @@ class Helix(Plugin):
             (".config/helix/config.toml", """
 theme = "gruvbox"
 """),
+            (".config/helix/languages.toml", """
+[[language]]
+name = "python"
+language-servers = [ "pyright" ]
+"""),
             (nu_env_path(self.flags), """
 $env.EDITOR = "hx"
 $env.VISUAL = "hx"
